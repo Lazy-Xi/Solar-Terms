@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CH">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body background="./src/bk.jpg">
+  <template id="my-card">
+    <div class="card">
+      <div class="title"></div>
+      <dl class="context"></dl>
+      <a class="hyperlink" target="_blank"></a>
+    </div>
+  </template>
+  <script src="./scripts/three.js"></script>
+  <script src="./scripts/solar system.js"></script>
+  <div class="settings-box">
+    <form>
+      <div class="check">
+        <input type="radio" name="track-type" value="default" id="default" checked
+          onchange="onTrackModeUpdate(radios.default)">
+        <label>宇宙视角</label>
+      </div>
+      <div class="check">
+        <input type="radio" name="track-type" value="track" id="track" 
+          onchange="onTrackModeUpdate(radios.track)">
+        <label>朝直射点</label>
+      </div>
+      <div class="check">
+        <input type="radio" name="track-type" value="face-to" id="face-to" 
+          onchange="onTrackModeUpdate(radios.face_to)">
+        <label>固定地轴</label>
+      </div>
+      <div class="check">
+        <input type="radio" name="track-type" value="same-direction" id="same-direction"
+          onchange="onTrackModeUpdate(radios.same_direction)">
+        <label>固定晨昏圈</label>
+      </div>
+    </form>
+
+    <form>
+      <div class="check">
+        <input type="checkbox" name="earth-guideline" value="earth-axis" id="earth-axis" checked>
+        <label>地轴</label>
+      </div>
+      <div class="check">
+        <input type="checkbox" name="earth-guideline" value="terminator" id="terminator" checked>
+        <label>晨昏圈</label>
+      </div>
+      <div class="check">
+        <input type="checkbox" name="earth-guideline" value="equator" id="equator" checked>
+        <label>赤道</label>
+      </div>
+      <div class="check">
+        <input type="checkbox" name="earth-guideline" value="tropic" id="tropic">
+        <label>南北回归线</label>
+      </div>
+      <div class="check">
+        <input type="checkbox" name="earth-guideline" value="subsolar-point" id="subsolar-point" checked>
+        <label>太阳直射点</label>
+      </div>
+      <div class="check">
+        <input type="checkbox" name="earth-guideline" value="ecliptic" id="ecliptic">
+        <label>黄道面</label>
+      </div>
+    </form>
+
+    <form>
+      <div class="check">
+        <label>水平旋转角度</label>
+        <input type="range" id="horizon" min="-180" max="180" step="0.01">
+      </div>
+      <div class="check">
+        <label>竖直旋转角度</label>
+        <input type="range" id="vertical" min="-89.9" max="89.9" step="0.01" value="45">
+      </div>
+      <div class="check">
+        <input type="button" id="reset-camera" value="重置视角" onclick="resetCamera()">
+      </div>
+    </form>
+  </div>
+  <script src="./scripts/settings.js"></script>
+  <div class="dock-box">
+    <div class="icon-box">
+      <div class="icon-box icon">立春</div>
+      <div class="icon-box icon">雨水</div>
+      <div class="icon-box icon">惊蛰</div>
+      <div class="icon-box icon">春分</div>
+      <div class="icon-box icon">清明</div>
+      <div class="icon-box icon">谷雨</div>
+      <div class="icon-box icon">立夏</div>
+      <div class="icon-box icon">小满</div>
+      <div class="icon-box icon">芒种</div>
+      <div class="icon-box icon">夏至</div>
+      <div class="icon-box icon">小暑</div>
+      <div class="icon-box icon">大暑</div>
+      <div class="icon-box icon">立秋</div>
+      <div class="icon-box icon">处暑</div>
+      <div class="icon-box icon">白露</div>
+      <div class="icon-box icon">秋分</div>
+      <div class="icon-box icon">寒露</div>
+      <div class="icon-box icon">霜降</div>
+      <div class="icon-box icon">立冬</div>
+      <div class="icon-box icon">小雪</div>
+      <div class="icon-box icon">大雪</div>
+      <div class="icon-box icon">冬至</div>
+      <div class="icon-box icon">小寒</div>
+      <div class="icon-box icon">大寒</div>
+    </div>
+    <div class="dock-box dock"></div>
+  </div>
+  <script src="./scripts/dock.js"></script>
+  <script src="./scripts/card.js"></script>
+</body>
+
+</html>
