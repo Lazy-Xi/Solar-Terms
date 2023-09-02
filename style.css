@@ -144,11 +144,11 @@ input[type=range]::-webkit-slider-thumb {
     height: 15px;
     width: 15px;
     margin-top: -2.5px;
-    background: #ffffff; 
+    background: #ffffff;
     border-radius: 50%;
     border: solid 0.125em rgba(205, 224, 230, 0.5);
     box-shadow: 0 0.125em 0.125em #3b4547;
-} 
+}
 
 input[type=range]::-webkit-slider-runnable-track {
     height: 10px;
@@ -195,7 +195,7 @@ input[type=button]:hover:active {
     margin: auto;
 }
 
-dl {
+.context {
     display: block;
     margin: none;
 }

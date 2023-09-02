@@ -19,6 +19,8 @@ var ecliptic;
 
 var is_revolution = true;
 
+let degree_box;
+
 init();
 
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -269,6 +271,8 @@ function update() {
   tropic.mesh.south.position.z = z;
 
   cameraMoveUpdate();
+
+  degree_box.innerHTML = (Math.round(earth.revolution.degree * (180 / Math.PI))).toString() + "°";
 }
 
 function cameraMoveUpdate() {

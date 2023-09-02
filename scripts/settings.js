@@ -17,6 +17,8 @@ var checkboxes = {
     tropic: document.getElementById("tropic")
 };
 
+degree_box = document.getElementById("ecliptic-longitude");
+
 function onTrackModeUpdate(e) {
     const last_move_mode = camera_track.move_mode;
     camera_track.move_mode = e.value;
