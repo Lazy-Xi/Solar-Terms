@@ -265,7 +265,7 @@ function addCard(e) {
 
         var final_degree = contexts[e.innerHTML].degree * (Math.PI / 180);
 
-        if (final_degree > earth.revolution.degree)
+        if (final_degree >= earth.revolution.degree)
             earth.revolution.term_step = (final_degree - earth.revolution.degree) / 25;
         else
             earth.revolution.term_step = (2 * Math.PI + final_degree - earth.revolution.degree) / 25;
@@ -327,7 +327,7 @@ function addCard(e) {
 
         is_revolution = true;
         var final_degree = contexts[e.innerHTML].degree * (Math.PI / 180);
-        if (final_degree > earth.revolution.degree)
+        if (final_degree >= earth.revolution.degree)
             earth.revolution.term_step = (final_degree - earth.revolution.degree) / 25;
         else
             earth.revolution.term_step = (2 * Math.PI + final_degree - earth.revolution.degree) / 25;
