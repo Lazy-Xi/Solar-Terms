@@ -24,11 +24,6 @@
         <label>宇宙视角</label>
       </div>
       <div class="check">
-        <input type="radio" name="track-type" value="track" id="track" 
-          onchange="onTrackModeUpdate(radios.track)">
-        <label>朝直射点</label>
-      </div>
-      <div class="check">
         <input type="radio" name="track-type" value="face-to" id="face-to" 
           onchange="onTrackModeUpdate(radios.face_to)">
         <label>朝地轴</label>
@@ -37,6 +32,11 @@
         <input type="radio" name="track-type" value="same-direction" id="same-direction"
           onchange="onTrackModeUpdate(radios.same_direction)">
         <label>朝晨昏圈</label>
+      </div>
+      <div class="check">
+        <input type="radio" name="track-type" value="track" id="track" 
+          onchange="onTrackModeUpdate(radios.track)">
+        <label>朝直射点</label>
       </div>
     </form>
 
