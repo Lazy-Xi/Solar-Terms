@@ -149,7 +149,7 @@ function init() {
   equator.mesh = new THREE.Mesh(equator.geometry, equator.texture);
 
   ecliptic = {
-    geometry: new THREE.CylinderGeometry(20.0, 20.0, 0.00001, 128),
+    geometry: new THREE.CylinderGeometry(5, 5, 0.00001, 128),
     texture: new THREE.MeshBasicMaterial({
       color: 0xdddddd,
       opacity: 0.5,
