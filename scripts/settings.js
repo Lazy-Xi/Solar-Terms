@@ -11,10 +11,9 @@ var track_degrees = {
 var checkboxes = {
     earth_axis: document.getElementById("earth-axis"),
     terminator: document.getElementById("terminator"),
-    equator: document.getElementById("equator"),
     ecliptic: document.getElementById("ecliptic"),
     subsolar_point: document.getElementById("subsolar-point"),
-    tropic: document.getElementById("tropic")
+    graticules: document.getElementById("graticules")
 };
 
 degree_box = document.getElementById("ecliptic-longitude");
@@ -83,12 +82,6 @@ checkboxes.terminator.addEventListener("change", function () {
     else
         scene.remove(terminator.mesh);
 });
-checkboxes.equator.addEventListener("change", function () {
-    if (checkboxes.equator.checked == true)
-        scene.add(equator.mesh);
-    else
-        scene.remove(equator.mesh);
-});
 checkboxes.ecliptic.addEventListener("change", function () {
     if (checkboxes.ecliptic.checked == true)
         scene.add(ecliptic.mesh);
@@ -101,13 +94,9 @@ checkboxes.subsolar_point.addEventListener("change", function () {
     else
         scene.remove(subsolar_point.mesh);
 });
-checkboxes.tropic.addEventListener("change", function () {
-    if (checkboxes.tropic.checked == true) {
-        scene.add(tropic.mesh.north);
-        scene.add(tropic.mesh.south);
-    }
-    else {
-        scene.remove(tropic.mesh.north);
-        scene.remove(tropic.mesh.south)
-    }
+checkboxes.graticules.addEventListener("change", function () {
+    if (checkboxes.graticules.checked == true)
+        scene.add(graticules.mesh);
+    else
+        scene.remove(graticules.mesh);
 });

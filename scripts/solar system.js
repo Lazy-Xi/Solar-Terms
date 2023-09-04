@@ -12,9 +12,9 @@ var sun;
 
 var earth_axis;
 var terminator;
-var equator;
-var tropic;
+var polar_circle;
 var subsolar_point;
+var graticules;
 var ecliptic;
 
 var is_revolution = true;
@@ -35,9 +35,8 @@ initEarth();
 initSun();
 initEarthAxis();
 initTerminator();
-initEquator();
 initSubsolarPoint();
-initTropic();
+initGraticules();
 
 addMesh();
 
@@ -133,49 +132,45 @@ function init() {
   sun.mesh = new THREE.Mesh(sun.geometry, sun.material);
 
   earth_axis = {
-    geometry: new THREE.CylinderGeometry(0.01, 0.01, 1.2, 128),
-    texture: new THREE.MeshBasicMaterial({ color: 0xff0000 })
+    geometry: new THREE.CylinderGeometry(0.005, 0.005, 1.2, 128),
+    material: new THREE.MeshBasicMaterial({ color: 0xff0000 })
   }
-  earth_axis.mesh = new THREE.Mesh(earth_axis.geometry, earth_axis.texture);
+  earth_axis.mesh = new THREE.Mesh(earth_axis.geometry, earth_axis.material);
 
   terminator = {
-    geometry: new THREE.CylinderGeometry(0.40043, 0.40043, 0.015, 128, 1, true),
-    texture: new THREE.MeshBasicMaterial({ color: 0xffff00 })
+    geometry: new THREE.CylinderGeometry(0.40043, 0.40043, 0.01, 128, 1, true),
+    material: new THREE.MeshBasicMaterial({ color: 0xffff00 })
   }
-  terminator.mesh = new THREE.Mesh(terminator.geometry, terminator.texture);
-
-  equator = {
-    geometry: new THREE.CylinderGeometry(0.40057, 0.40057, 0.015, 128, 1, true),
-    texture: new THREE.MeshBasicMaterial({ color: 0xff4b9b })
-  }
-  equator.mesh = new THREE.Mesh(equator.geometry, equator.texture);
+  terminator.mesh = new THREE.Mesh(terminator.geometry, terminator.material);
 
   ecliptic = {
-    geometry: new THREE.CylinderGeometry(5, 5, 0.00001, 128),
-    texture: new THREE.MeshBasicMaterial({
+    geometry: new THREE.CylinderGeometry(7, 7, 0.00001, 128),
+    material: new THREE.MeshBasicMaterial({
       color: 0xdddddd,
       opacity: 0.5,
       transparent: true
     })
   }
-  ecliptic.mesh = new THREE.Mesh(ecliptic.geometry, ecliptic.texture);
+  ecliptic.mesh = new THREE.Mesh(ecliptic.geometry, ecliptic.material);
 
   subsolar_point = {
     geometry: new THREE.CylinderGeometry(0.0075, 0.0075, 0.001, 128),
-    texture: new THREE.MeshBasicMaterial({ color: 0xd7ff80 })
+    material: new THREE.MeshBasicMaterial({ color: 0xd7ff80 })
   }
-  subsolar_point.mesh = new THREE.Mesh(subsolar_point.geometry, subsolar_point.texture);
+  subsolar_point.mesh = new THREE.Mesh(subsolar_point.geometry, subsolar_point.material);
 
-  tropic = {
-    geometry: {
-      north: new THREE.CylinderGeometry(0.36, 0.375, 0.015, 128, 1, true),
-      south: new THREE.CylinderGeometry(0.375, 0.36, 0.015, 128, 1, true),
-    },
-    texture: new THREE.MeshBasicMaterial({ color: 0x4bc8ff }),
-    mesh: {}
-  }
-  tropic.mesh.north = new THREE.Mesh(tropic.geometry.north, tropic.texture);
-  tropic.mesh.south = new THREE.Mesh(tropic.geometry.south, tropic.texture);
+  graticules = {
+    geometry: new THREE.SphereGeometry(0.407, 128, 128),
+    texture: new THREE.TextureLoader().load("./src/earth_graticules.png"),
+    alpha: new THREE.TextureLoader().load("./src/earth_graticules_alpha.png")
+  };
+  graticules.material = new THREE.MeshBasicMaterial({ 
+    map: graticules.texture, 
+    alphaMap: graticules.alpha,
+    transparent: true,
+    emissiveColor: 0x444444
+  });
+  graticules.mesh = new THREE.Mesh(graticules.geometry, graticules.material);
 }
 
 function initEarth() {
@@ -184,7 +179,6 @@ function initEarth() {
   earth.mesh.rotation.z = -23.5 * (Math.PI / 180);
   earth.mesh.geometry.center();
   earth.mesh.position.y = 0;
-  earth.mesh.translateZ(-2);
 }
 
 function initSun() {
@@ -207,20 +201,15 @@ function initTerminator() {
   terminator.mesh.rotation.x = Math.PI / 2;
 }
 
-function initEquator() {
-  equator.mesh.rotation.z = -23.5 * (Math.PI / 180);
-}
-
 function initSubsolarPoint() {
   subsolar_point.mesh.rotation.x = Math.PI / 2;
 }
 
-function initTropic() {
-  tropic.mesh.north.rotation.z = -23.5 * (Math.PI / 180);
-  tropic.mesh.south.rotation.z = -23.5 * (Math.PI / 180);
-
-  tropic.mesh.north.position.y = 0.4 * Math.sin(23.5 * (Math.PI / 180)) * Math.cos(23.5 * (Math.PI / 180)) + 0.005;
-  tropic.mesh.south.position.y = -0.4 * Math.sin(23.5 * (Math.PI / 180)) * Math.cos(23.5 * (Math.PI / 180)) - 0.005;
+function initGraticules() {
+  graticules.mesh.geometry.center();
+  graticules.mesh.rotation.z = -23.5 * (Math.PI / 180);
+  graticules.mesh.geometry.center();
+  graticules.mesh.position.y = 0;
 }
 
 function addMesh() {
@@ -228,13 +217,13 @@ function addMesh() {
   scene.add(sun.mesh);
   scene.add(earth_axis.mesh);
   scene.add(terminator.mesh);
-  scene.add(equator.mesh);
   scene.add(subsolar_point.mesh);
+  scene.add(graticules.mesh);
 }
 
 function update() {
-  if (is_revolution)
-    if (earth.revolution.term_step == -1)
+  if (is_revolution) 
+    if (earth.revolution.term_step == -1) 
       earth.revolution.degree += earth.revolution.step;
     else
       earth.revolution.degree += earth.revolution.term_step;
@@ -247,11 +236,14 @@ function update() {
 
   sun.mesh.rotation.y += 0.004;
   earth.mesh.rotateOnWorldAxis(earth.autorotation.axis, earth.autorotation.degree);
+  graticules.mesh.rotateOnWorldAxis(earth.autorotation.axis, earth.autorotation.degree);
   terminator.mesh.rotation.z = -earth.revolution.degree;
   subsolar_point.mesh.rotation.z = -earth.revolution.degree;
 
   earth.mesh.position.x = x;
   earth.mesh.position.z = z;
+  graticules.mesh.position.x = x;
+  graticules.mesh.position.z = z;
 
   earth_axis.mesh.position.x = x;
   earth_axis.mesh.position.z = z;
@@ -259,16 +251,8 @@ function update() {
   terminator.mesh.position.x = x;
   terminator.mesh.position.z = z;
 
-  equator.mesh.position.x = x;
-  equator.mesh.position.z = z;
-
   subsolar_point.mesh.position.x = 31 / 35 * x;
   subsolar_point.mesh.position.z = 31 / 35 * z;
-
-  tropic.mesh.north.position.x = x + 0.4 * Math.pow(Math.sin(23.5 * (Math.PI / 180)), 2);
-  tropic.mesh.south.position.x = x - 0.4 * Math.pow(Math.sin(23.5 * (Math.PI / 180)), 2);
-  tropic.mesh.north.position.z = z;
-  tropic.mesh.south.position.z = z;
 
   cameraMoveUpdate();
 
