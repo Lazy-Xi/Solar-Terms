@@ -160,15 +160,14 @@ function init() {
   subsolar_point.mesh = new THREE.Mesh(subsolar_point.geometry, subsolar_point.material);
 
   graticules = {
-    geometry: new THREE.SphereGeometry(0.407, 128, 128),
+    geometry: new THREE.SphereGeometry(0.41, 128, 128),
     texture: new THREE.TextureLoader().load("./src/earth_graticules.png"),
     alpha: new THREE.TextureLoader().load("./src/earth_graticules_alpha.png")
   };
   graticules.material = new THREE.MeshBasicMaterial({ 
     map: graticules.texture, 
     alphaMap: graticules.alpha,
-    transparent: true,
-    emissiveColor: 0x444444
+    transparent: true
   });
   graticules.mesh = new THREE.Mesh(graticules.geometry, graticules.material);
 }
