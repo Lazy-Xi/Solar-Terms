@@ -15,8 +15,10 @@ var checkboxes = {
     subsolar_point: document.getElementById("subsolar-point"),
     graticules: document.getElementById("graticules")
 };
+var pause_button = document.getElementById("pause-btn");
 
 degree_box = document.getElementById("ecliptic-longitude");
+term_box = document.getElementById("term-period");
 
 function onTrackModeUpdate(e) {
     const last_move_mode = camera_track.move_mode;
@@ -99,4 +101,20 @@ checkboxes.graticules.addEventListener("change", function () {
         scene.add(graticules.mesh);
     else
         scene.remove(graticules.mesh);
+});
+
+pause_button.addEventListener("click", function () {
+    if (this.value === "暂停旋转") {
+        this.value = "继续旋转";
+
+        is_revolution = false;
+        is_autorotation = false;
+    }
+    else {
+        this.value = "暂停旋转";
+
+        if (!is_exist_card)
+            is_revolution = true;
+        is_autorotation = true;
+    }
 });

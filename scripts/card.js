@@ -270,6 +270,13 @@ function addCard(e) {
         else
             earth.revolution.term_step = (2 * Math.PI + final_degree - earth.revolution.degree) / 25;
 
+        var flag = false;
+        if (!is_autorotation) {
+            flag = true;
+            is_autorotation = true;
+            is_revolution = true;
+        }
+
         window.setTimeout(function () {
             var clone = document.importNode(template, true);
             insertAfter(clone, canvas);
@@ -298,6 +305,8 @@ function addCard(e) {
 
             is_exist_card = true;
             is_revolution = false;
+            if (flag)
+                is_autorotation = false;
 
             card.addEventListener("dblclick", function (event) {
                 var x = event.clientX;
@@ -334,7 +343,7 @@ function addCard(e) {
 
         window.setTimeout(function () {
             is_revolution = false;
-            
+
             earth.revolution.term_step = -1;
             earth.revolution.degree = final_degree;
         }, 400);
@@ -358,7 +367,8 @@ function removeCard() {
         canvas.style["transform"] = "";
         canvas.style["left"] = "";
 
-        is_revolution = true;
+        if (is_autorotation)
+            is_revolution = true;
     }, 400);
 }
 

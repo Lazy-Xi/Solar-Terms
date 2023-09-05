@@ -78,10 +78,13 @@
     </form>
 
     <form>
-      <dl style="overflow: hidden;margin-bottom: 5px;">
+      <dl style="overflow: hidden;margin-bottom: 5px;font-size: 110%;">
         <dt style="float: left;clear: left;">黄经度数：</dt>
-        <dd id="ecliptic-longitude" style="float: left;margin-left: 0px;"></dd>
+        <dd id="ecliptic-longitude" style="float: left; margin-left: 0px; transform: translateY(1px);"></dd>
+        <dt style="float: left;clear: left;">节气：</dt>
+        <dd id="term-period" style="float: left; margin-left: 0px; transform: translateY(1px);">春分~夏至</dd>
       </dl>
+      <input type="button" id="pause-btn" value="暂停旋转" />
     </form>
   </div>
   <script src="./scripts/settings.js"></script>

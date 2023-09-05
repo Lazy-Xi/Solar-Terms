@@ -18,8 +18,16 @@ var graticules;
 var ecliptic;
 
 var is_revolution = true;
+var is_autorotation = true;
 
 let degree_box;
+let term_box;
+
+const dict = ["春分", "清明", "谷雨", "立夏", "小满", "芒种",
+  "夏至", "小暑", "大暑", "立秋", "处暑", "白露",
+  "秋分", "寒露", "霜降", "立冬", "小雪", "大雪",
+  "冬至", "小寒", "大寒", "立春", "雨水", "惊蛰",
+];
 
 init();
 
@@ -77,49 +85,49 @@ function init() {
       emissive_color: { type: "v3", value: new THREE.Color(0xffff00) }
     },
     vertexShader: `
-      varying vec2 v_uv; // 定义一个二维向量类型的varying变量v_uv，用于传递纹理坐标
-      varying vec3 v_normal; // 定义一个三维向量类型的varying变量v_normal，用于传递法线向量
-      varying vec3 v_position; // 定义一个三维向量类型的varying变量v_position，用于传递像素点位置
-      void main() {
-        v_uv = uv; // 将顶点的uv属性赋值给v_uv变量
-        v_normal = normalMatrix * normal; // 将顶点的normal属性乘以normalMatrix矩阵，得到变换后的法线向量，并赋值给v_normal变量
-        v_position = (modelMatrix * vec4(position, 1.0)).xyz; // 计算像素点位置，并赋值给v_position变量
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); // 计算顶点位置，并赋值给gl_Position变量
-      }
-    `,
+    varying vec2 v_uv; // 定义一个二维向量类型的varying变量v_uv，用于传递纹理坐标
+    varying vec3 v_normal; // 定义一个三维向量类型的varying变量v_normal，用于传递法线向量
+    varying vec3 v_position; // 定义一个三维向量类型的varying变量v_position，用于传递像素点位置
+    void main() {
+      v_uv = uv; // 将顶点的uv属性赋值给v_uv变量
+      v_normal = normalMatrix * normal; // 将顶点的normal属性乘以normalMatrix矩阵，得到变换后的法线向量，并赋值给v_normal变量
+      v_position = (modelMatrix * vec4(position, 1.0)).xyz; // 计算像素点位置，并赋值给v_position变量
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); // 计算顶点位置，并赋值给gl_Position变量
+    }
+  `,
     fragmentShader: `
-      uniform sampler2D day_texture; // 接收uniform变量day_texture
-      uniform sampler2D night_texture; // 接收uniform变量night_texture
-      uniform sampler2D night_mask;
-      uniform vec3 light_position; // 接收uniform变量light_position
-      uniform vec3 emissive_color;
-      uniform mat4 view_matrix;
+    uniform sampler2D day_texture; // 接收uniform变量day_texture
+    uniform sampler2D night_texture; // 接收uniform变量night_texture
+    uniform sampler2D night_mask;
+    uniform vec3 light_position; // 接收uniform变量light_position
+    uniform vec3 emissive_color;
+    uniform mat4 view_matrix;
 
-      varying vec2 v_uv; // 接收varying变量v_uv
-      varying vec3 v_normal; // 接收varying变量v_normal
-      varying vec3 v_position;
-  
-      void main() {
-        vec4 day_color = pow(texture2D(day_texture, v_uv), vec4(0.8)); // 根据纹理坐标采样白天贴图的颜色
-        vec4 night_color = pow(texture2D(night_texture, v_uv), vec4(1.2)); // 根据纹理坐标采样夜晚贴图的颜色
-        vec4 mask_color = texture2D(night_mask, v_uv);
+    varying vec2 v_uv; // 接收varying变量v_uv
+    varying vec3 v_normal; // 接收varying变量v_normal
+    varying vec3 v_position;
 
-        vec3 light_pos = (view_matrix * vec4(light_position, 1.0)).xyz; // 将光源位置转换到视图空间
-        vec3 pixel_pos = (view_matrix * vec4(v_position, 1.0)).xyz; // 将像素点位置转换到视图空间
+    void main() {
+      vec4 day_color = pow(texture2D(day_texture, v_uv), vec4(0.8)); // 根据纹理坐标采样白天贴图的颜色
+      vec4 night_color = pow(texture2D(night_texture, v_uv), vec4(1.2)); // 根据纹理坐标采样夜晚贴图的颜色
+      vec4 mask_color = texture2D(night_mask, v_uv);
 
-        vec3 light_dir = normalize(light_pos - pixel_pos); // 计算光源方向向量，并归一化
+      vec3 light_pos = (view_matrix * vec4(light_position, 1.0)).xyz; // 将光源位置转换到视图空间
+      vec3 pixel_pos = (view_matrix * vec4(v_position, 1.0)).xyz; // 将像素点位置转换到视图空间
 
-        float dot_product = dot(v_normal, light_dir); // 计算光线和地球位置的点积，表示太阳和地球的相对位置
-        float diffuse_factor = max(dot_product, 0.0); // 计算漫反射系数，按照Lambert定律
-        float ambient_factor = 0.1; // 定义环境光系数
-        float glow_intensity = mask_color.r;
+      vec3 light_dir = normalize(light_pos - pixel_pos); // 计算光源方向向量，并归一化
 
-        vec4 base_color = mix(night_color, day_color, diffuse_factor + ambient_factor); // 使用内置函数mix按照光照系数混合两个颜色值，实现白天和夜晚的过渡效果，并考虑漫反射、镜面反射和环境光的影响
-        vec4 glow_color = pow(night_color * glow_intensity, vec4(0.8));
+      float dot_product = dot(v_normal, light_dir); // 计算光线和地球位置的点积，表示太阳和地球的相对位置
+      float diffuse_factor = max(dot_product, 0.0); // 计算漫反射系数，按照Lambert定律
+      float ambient_factor = 0.1; // 定义环境光系数
+      float glow_intensity = mask_color.r;
 
-        gl_FragColor = base_color + glow_color; // 设置片元颜色为混合后的颜色
-      }
-    `
+      vec4 base_color = mix(night_color, day_color, diffuse_factor + ambient_factor); // 使用内置函数mix按照光照系数混合两个颜色值，实现白天和夜晚的过渡效果，并考虑漫反射、镜面反射和环境光的影响
+      vec4 glow_color = pow(night_color * glow_intensity, vec4(0.8));
+
+      gl_FragColor = base_color + glow_color; // 设置片元颜色为混合后的颜色
+    }
+  `
   });
 
   earth.mesh = new THREE.Mesh(earth.geometry, earth.material);
@@ -164,8 +172,8 @@ function init() {
     texture: new THREE.TextureLoader().load("./src/earth_graticules.png"),
     alpha: new THREE.TextureLoader().load("./src/earth_graticules_alpha.png")
   };
-  graticules.material = new THREE.MeshBasicMaterial({ 
-    map: graticules.texture, 
+  graticules.material = new THREE.MeshBasicMaterial({
+    map: graticules.texture,
     alphaMap: graticules.alpha,
     transparent: true
   });
@@ -221,8 +229,8 @@ function addMesh() {
 }
 
 function update() {
-  if (is_revolution) 
-    if (earth.revolution.term_step == -1) 
+  if (is_revolution)
+    if (earth.revolution.term_step == -1)
       earth.revolution.degree += earth.revolution.step;
     else
       earth.revolution.degree += earth.revolution.term_step;
@@ -234,8 +242,11 @@ function update() {
   z = -3.5 * Math.cos(earth.revolution.degree);
 
   sun.mesh.rotation.y += 0.004;
-  earth.mesh.rotateOnWorldAxis(earth.autorotation.axis, earth.autorotation.degree);
-  graticules.mesh.rotateOnWorldAxis(earth.autorotation.axis, earth.autorotation.degree);
+
+  if (is_autorotation) {
+    earth.mesh.rotateOnWorldAxis(earth.autorotation.axis, earth.autorotation.degree);
+    graticules.mesh.rotateOnWorldAxis(earth.autorotation.axis, earth.autorotation.degree);
+  }
   terminator.mesh.rotation.z = -earth.revolution.degree;
   subsolar_point.mesh.rotation.z = -earth.revolution.degree;
 
@@ -250,12 +261,15 @@ function update() {
   terminator.mesh.position.x = x;
   terminator.mesh.position.z = z;
 
-  subsolar_point.mesh.position.x = 31 / 35 * x;
-  subsolar_point.mesh.position.z = 31 / 35 * z;
+  subsolar_point.mesh.position.x = 0.88301064 * x;
+  subsolar_point.mesh.position.z = 0.88301064 * z;
 
   cameraMoveUpdate();
 
   degree_box.innerHTML = (Math.round(earth.revolution.degree * (180 / Math.PI))).toString() + "°";
+
+  let p = parseInt(Math.round(earth.revolution.degree * (12 / Math.PI))) % 24;
+  term_box.innerHTML = dict[p];
 }
 
 function cameraMoveUpdate() {
