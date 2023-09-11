@@ -6,7 +6,8 @@ var radios = {
 };
 var track_degrees = {
     horizon: document.getElementById("horizon"),
-    vertical: document.getElementById("vertical")
+    vertical: document.getElementById("vertical"),
+    zoom: document.getElementById("zoom")
 };
 var checkboxes = {
     earth_axis: document.getElementById("earth-axis"),
@@ -56,6 +57,10 @@ track_degrees.vertical.addEventListener("input", function () {
     }
     camera_track.vertical_degree = track_degrees.vertical.value * (Math.PI / 180);
 })
+track_degrees.zoom.addEventListener("input", function() {
+    camera.zoom = track_degrees.zoom.value;
+    camera.updateProjectionMatrix();
+})
 
 function resetCamera() {
     if (camera_track.move_mode == "default") {
@@ -68,7 +73,11 @@ function resetCamera() {
     }
 
     track_degrees.horizon.value = 0;
+    track_degrees.zoom.value = 2.8;
+    
     camera_track.horizon_degree = 0;
+    camera.zoom = 2.8;
+    camera.updateProjectionMatrix();
 }
 
 checkboxes.earth_axis.addEventListener("change", function () {
