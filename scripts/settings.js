@@ -58,7 +58,6 @@ track_degrees.vertical.addEventListener("input", function () {
 })
 
 function resetCamera() {
-    console.log(camera_track.move_mode);
     if (camera_track.move_mode == "default") {
         track_degrees.vertical.value = 45;
         camera_track.vertical_degree = Math.PI / 4;

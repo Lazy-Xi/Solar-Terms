@@ -295,23 +295,6 @@ function cameraMoveUpdate() {
     camera.position.z = z + 3 * Math.cos(earth.revolution.degree - Math.PI / 2 - camera_track.horizon_degree) * Math.cos(camera_track.vertical_degree);
     camera.lookAt(x, 0, z);
   }
-  else if (camera_track.move_mode == "look-equator") {
-    let position = new THREE.Vector3(x * 6 / 7, 0, z * 6 / 7);
-    let world_point = earth_axis.mesh.localToWorld(position.clone());
-    camera.position.x = world_point.x;
-    camera.position.y = world_point.y;
-    camera.position.z = world_point.z;
-
-    camera.lookAt(x, 0, z);
-
-    var nor = new THREE.Vector3();
-    camera.getWorldDirection(nor);
-    // let theta = normal.angleTo(new THREE.Vector3(-Math.cos(23.5 * (Math.PI / 180)), 0, Math.sin(23.5 * (Math.PI / 180))));
-    // camera.rotation.z = Math.PI - theta;
-    // console.log(theta);
-
-    camera.updateProjectionMatrix();
-  }
 }
 
 function animate() {
