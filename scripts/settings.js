@@ -35,6 +35,10 @@ function onTrackModeUpdate(e) {
         horizon.value = 0;
         vertical.value = 45;
     }
+    else if (camera_track.move_mode == "look-equator") {
+        camera_track.vertical_degree = 0;
+        vertical.value = 0;
+    }
     else if (last_move_mode == "default") {
         camera.position.y = 0;
 
@@ -55,6 +59,9 @@ track_degrees.vertical.addEventListener("input", function () {
             track_degrees.vertical.value = 80;
         if (track_degrees.vertical.value <= -80)
             track_degrees.vertical.value = -80;
+    }
+    else if (camera_track.move_mode == "look-equator") {
+        track_degrees.vertical.value = 0;
     }
     camera_track.vertical_degree = track_degrees.vertical.value * (Math.PI / 180);
 })

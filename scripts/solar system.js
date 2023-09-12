@@ -1,4 +1,5 @@
 const phi = 23.5 * (Math.PI / 180);
+const v_earth_axis = new THREE.Vector3(Math.sin(phi), 0, Math.cos(phi));
 
 var scene;
 var camera;
@@ -299,20 +300,25 @@ function cameraMoveUpdate() {
   }
   else if (camera_track.move_mode == "look-equator") {
     let positive_position = new THREE.Vector3(
-      -3 * Math.cos(earth.revolution.degree - Math.PI / 2 + camera_track.horizon_degree) * Math.cos(camera_track.vertical_degree),
-      3 * Math.sin(camera_track.vertical_degree),
-      3 * Math.sin(earth.revolution.degree - Math.PI / 2 + camera_track.horizon_degree) * Math.cos(camera_track.vertical_degree)
+      -3 * Math.cos(earth.revolution.degree - Math.PI / 2 + camera_track.horizon_degree),
+      0,
+      3 * Math.sin(earth.revolution.degree - Math.PI / 2 + camera_track.horizon_degree)
     );
     let relative_position = earth_axis.mesh.localToWorld(positive_position.clone());
     camera.position.x = relative_position.x;
     camera.position.y = relative_position.y;
     camera.position.z = relative_position.z;
-
+    
+    camera.rotation.z = 0;
     camera.lookAt(x, 0, z);
+
     let dir = new THREE.Vector3();
     camera.getWorldDirection(dir);
-    camera.rotateOnWorldAxis(dir, -phi * Math.cos(earth.revolution.degree + camera_track.horizon_degree));
-
+    dir.normalize();
+    
+    let theta = -phi * Math.cos(earth.revolution.degree + camera_track.horizon_degree);
+    camera.rotateOnWorldAxis(dir, theta);
+    
     camera.updateProjectionMatrix();
   }
 }
