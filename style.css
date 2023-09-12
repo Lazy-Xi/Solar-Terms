@@ -55,15 +55,6 @@ body {
     box-shadow: 0 0.125em 0.125em #0d1112;
 }
 
-.icon:hover {
-    transform: scale(1.15) translateY(-12px);
-}
-
-.icon:active:hover {
-    background-color: rgb(200, 200, 200);
-    box-shadow: inset 1px 1px 5px white;
-}
-
 .settings-box {
     width: 10%;
     margin: 0px;
