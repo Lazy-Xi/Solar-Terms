@@ -2,7 +2,8 @@ var radios = {
     default: document.getElementById("default"),
     track: document.getElementById("track"),
     face_to: document.getElementById("face-to"),
-    same_direction: document.getElementById("same-direction")
+    same_direction: document.getElementById("same-direction"),
+    look_equator: document.getElementById("look-equator")
 };
 var track_degrees = {
     horizon: document.getElementById("horizon"),

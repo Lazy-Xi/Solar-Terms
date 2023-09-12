@@ -29,6 +29,11 @@
         <label>朝地轴</label>
       </div>
       <div class="check">
+        <input type="radio" name="track-type" value="look-equator" id="look-equator" 
+          onchange="onTrackModeUpdate(radios.look_equator)">
+        <label>朝赤道</label>
+      </div>
+      <div class="check">
         <input type="radio" name="track-type" value="same-direction" id="same-direction"
           onchange="onTrackModeUpdate(radios.same_direction)">
         <label>朝晨昏圈</label>
@@ -81,8 +86,8 @@
       </div>
     </form>
 
-    <form>
-      <dl style="overflow: hidden;margin-bottom: 5px;font-size: 110%;">
+    <form">
+      <dl style="overflow: hidden;margin-bottom: 5px;font-size: 110%;margin-top: 3px;">
         <dt style="float: left;clear: left;">黄经度数：</dt>
         <dd id="ecliptic-longitude" style="float: left; margin-left: 0px; transform: translateY(1px);"></dd>
         <dt style="float: left;clear: left;">节气：</dt>
