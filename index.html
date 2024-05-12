@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="./style.css">
+  <script src="./js/three.js"></script>
 </head>
 
 <body background="./src/bk.jpg">
@@ -14,8 +15,7 @@
       <a class="hyperlink" target="_blank"></a>
     </div>
   </template>
-  <script src="./scripts/three.js"></script>
-  <script src="./scripts/solar system.js"></script>
+  <script src="./js/scene.js"></script>
   <div class="settings-box">
     <form>
       <div class="check">
@@ -86,7 +86,7 @@
       </div>
     </form>
 
-    <form">
+    <form>
       <dl style="overflow: hidden;margin-bottom: 5px;font-size: 110%;margin-top: 3px;">
         <dt style="float: left;clear: left;">黄经度数：</dt>
         <dd id="ecliptic-longitude" style="float: left; margin-left: 0px; transform: translateY(1px);"></dd>
@@ -96,7 +96,6 @@
       <input type="button" id="pause-btn" value="暂停旋转" />
     </form>
   </div>
-  <script src="./scripts/settings.js"></script>
   <div class="dock-box">
     <div class="icon-box">
       <div class="icon-box icon">立春</div>
@@ -126,8 +125,19 @@
     </div>
     <div class="dock-box dock"></div>
   </div>
-  <script src="./scripts/dock.js"></script>
-  <script src="./scripts/card.js"></script>
+  <script src="./js/figure/earth_axis.js"></script>
+  <script src="./js/figure/earth.js"></script>
+  <script src="./js/figure/ecliptic.js"></script>
+  <script src="./js/figure/graticules.js"></script>
+  <script src="./js/figure/lunar_orbit_plane.js"></script>
+  <script src="./js/figure/moon.js"></script>
+  <script src="./js/figure/subsolar_point.js"></script>
+  <script src="./js/figure/sun.js"></script>
+  <script src="./js/figure/terminator.js"></script>
+  <script src="./js/card.js"></script>
+  <script src="./js/dock.js"></script>
+  <script src="./js/script.js"></script>
+  <script src="./js/render.js"></script>
 </body>
 
 </html>
