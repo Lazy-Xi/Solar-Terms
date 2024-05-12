@@ -3,11 +3,11 @@ var moon = {
     texture: new THREE.TextureLoader().load("./src/moon.jpg"),
     autorotation: {
         axis: new THREE.Vector3(-Math.sin(beta), -Math.cos(beta), 0),
-        degree: -Math.PI / 180
+        step: -Math.PI / 150,
     },
     revolution: {
         degree: 0,
-        step: Math.PI / 180
+        step: Math.PI / 150
     }
 };
 

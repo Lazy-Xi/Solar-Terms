@@ -1,7 +1,7 @@
 var lunar_orbit_plane = {
     geometry: new THREE.CylinderGeometry(1.15, 1.15, 0.00001, 128),
     material: new THREE.MeshBasicMaterial({
-        color: 0xdfdb8c,
+        color: 0xdddddd,
         opacity: 0.5,
         transparent: true
     })

@@ -1,7 +1,7 @@
 const dict = ["春分", "清明", "谷雨", "立夏", "小满", "芒种",
-  "夏至", "小暑", "大暑", "立秋", "处暑", "白露",
-  "秋分", "寒露", "霜降", "立冬", "小雪", "大雪",
-  "冬至", "小寒", "大寒", "立春", "雨水", "惊蛰",
+    "夏至", "小暑", "大暑", "立秋", "处暑", "白露",
+    "秋分", "寒露", "霜降", "立冬", "小雪", "大雪",
+    "冬至", "小寒", "大寒", "立春", "雨水", "惊蛰",
 ];
 const contexts = {
     "立春": {
@@ -269,12 +269,13 @@ function addCard(e) {
         canvas.style["transform"] = "translateX(-10%)";
         canvas.style["left"] = "none";
 
-        var final_degree = contexts[e.innerHTML].degree * (Math.PI / 180);
-
-        if (final_degree >= earth.revolution.degree)
+        const final_degree = contexts[e.innerHTML].degree * (Math.PI / 180);
+        if (final_degree >= earth.revolution.degree) {
             earth.revolution.term_step = (final_degree - earth.revolution.degree) / 25;
-        else
+        }
+        else {
             earth.revolution.term_step = (2 * Math.PI + final_degree - earth.revolution.degree) / 25;
+        }
 
         var flag = false;
         if (!is_autorotation) {
@@ -296,8 +297,9 @@ function addCard(e) {
 
             var dl = card.querySelector(".context");
             for (const i in contexts[e.innerHTML]) {
-                if (i == "degree")
+                if (i == "degree") {
                     continue;
+                }
 
                 var dt = document.createElement("dt");
                 var dd = document.createElement("dd");
@@ -311,13 +313,14 @@ function addCard(e) {
 
             is_exist_card = true;
             is_revolution = false;
-            if (flag)
+            if (flag) {
                 is_autorotation = false;
+            }
 
             card.addEventListener("dblclick", function (event) {
-                var x = event.clientX;
-                var y = event.clientY;
-                var rect = card.getBoundingClientRect();
+                const x = event.clientX;
+                const y = event.clientY;
+                const rect = card.getBoundingClientRect();
                 if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
                     removeCard();
                     is_exist_card = false;
@@ -329,23 +332,26 @@ function addCard(e) {
         }, 400);
     }
     else {
-        var card = document.querySelector(".card");
+        const card = document.querySelector(".card");
         card.querySelector(".title").innerHTML = e.innerHTML;
 
         var dd = card.getElementsByTagName("dd");
-        for (var i = 0; i < dd.length; i++)
+        for (var i = 0; i < dd.length; i++) {
             dd[i].innerHTML = contexts[e.innerHTML][dd[i].id];
+        }
 
         card.querySelector(".hyperlink").href = "https://baike.baidu.com/item/" + e.innerHTML;
         card.querySelector(".hyperlink").innerHTML = "前往：百度百科_" + e.innerHTML;
         card.querySelector(".hyperlink").title = "前往：百度百科_" + e.innerHTML;
 
         is_revolution = true;
-        var final_degree = contexts[e.innerHTML].degree * (Math.PI / 180);
-        if (final_degree >= earth.revolution.degree)
+        const final_degree = contexts[e.innerHTML].degree * (Math.PI / 180);
+        if (final_degree >= earth.revolution.degree) {
             earth.revolution.term_step = (final_degree - earth.revolution.degree) / 25;
-        else
+        }
+        else {
             earth.revolution.term_step = (2 * Math.PI + final_degree - earth.revolution.degree) / 25;
+        }
 
         window.setTimeout(function () {
             is_revolution = false;

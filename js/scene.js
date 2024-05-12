@@ -9,6 +9,7 @@ var renderer;
 
 var is_revolution = true;
 var is_autorotation = true;
+var is_moon_rotation = true;
 
 var degree_box;
 var term_box;

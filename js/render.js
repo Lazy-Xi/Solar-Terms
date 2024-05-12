@@ -13,7 +13,6 @@ function update() {
     if (is_revolution) {
         if (earth.revolution.term_step == -1) {
             earth.revolution.degree += earth.revolution.step;
-            moon.revolution.degree += moon.revolution.step;
         }
         else {
             earth.revolution.degree += earth.revolution.term_step;
@@ -22,6 +21,11 @@ function update() {
 
     if (earth.revolution.degree >= Math.PI * 2) {
         earth.revolution.degree -= Math.PI * 2;
+    }
+
+    if (is_moon_rotation) {
+        moon.revolution.degree += moon.revolution.step;
+        moon.mesh.rotateOnWorldAxis(moon.autorotation.axis, moon.autorotation.step);
     }
 
     if (moon.revolution.degree >= Math.PI * 2) {
@@ -34,10 +38,10 @@ function update() {
     sun.mesh.rotation.y += 0.004;
 
     if (is_autorotation) {
-        earth.mesh.rotateOnWorldAxis(earth.autorotation.axis, earth.autorotation.degree);
-        graticules.mesh.rotateOnWorldAxis(earth.autorotation.axis, earth.autorotation.degree);
-        moon.mesh.rotateOnWorldAxis(moon.autorotation.axis, moon.autorotation.degree);
+        earth.mesh.rotateOnWorldAxis(earth.autorotation.axis, earth.autorotation.step);
+        graticules.mesh.rotateOnWorldAxis(earth.autorotation.axis, earth.autorotation.step);
     }
+
     terminator.mesh.rotation.z = -earth.revolution.degree;
     subsolar_point.mesh.rotation.z = -earth.revolution.degree;
 
