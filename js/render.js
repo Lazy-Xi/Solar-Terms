@@ -32,8 +32,8 @@ function update() {
         moon.revolution.degree -= Math.PI * 2;
     }
 
-    x = -3.5 * Math.sin(earth.revolution.degree);
-    z = -3.5 * Math.cos(earth.revolution.degree);
+    x = -1 * earth_revolution_radius * Math.sin(earth.revolution.degree);
+    z = -1 * earth_revolution_radius * Math.cos(earth.revolution.degree);
 
     sun.mesh.rotation.y += 0.004;
 
@@ -50,9 +50,9 @@ function update() {
     graticules.mesh.position.x = x;
     graticules.mesh.position.z = z;
 
-    moon.mesh.position.x = x - 0.9 * Math.cos(moon.revolution.degree) * Math.cos(beta);
-    moon.mesh.position.y = 0.9 * Math.cos(moon.revolution.degree) * Math.sin(beta);
-    moon.mesh.position.z = z + 0.9 * Math.sin(moon.revolution.degree);
+    moon.mesh.position.x = x - moon_revolution_radius * Math.cos(moon.revolution.degree) * Math.cos(beta);
+    moon.mesh.position.y = moon_revolution_radius * Math.cos(moon.revolution.degree) * Math.sin(beta);
+    moon.mesh.position.z = z + moon_revolution_radius * Math.sin(moon.revolution.degree);
 
     earth_axis.mesh.position.x = x;
     earth_axis.mesh.position.z = z;

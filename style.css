@@ -49,7 +49,8 @@ body {
 }
 
 .settings-box {
-    width: 10%;
+    width: 135px;
+    height: auto;
     margin: 0px;
     margin-right: 5px;
     margin-top: 5px;
@@ -60,15 +61,16 @@ body {
     position: absolute;
     top: 0px;
     right: 0px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
 }
 
-form {
+div.form {
     width: 90%;
     padding: 4px;
     margin: 0 0 0 0;
+}
+
+.form.track-type {
+    height: auto;
 }
 
 .check {

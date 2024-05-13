@@ -7,7 +7,7 @@ var earth = {
     },
     autorotation: {
         axis: new THREE.Vector3(-Math.sin(phi), -Math.cos(phi), 0),
-        step: -Math.PI / 360
+        step: -Math.PI / 75
     },
     revolution: {
         degree: 0,

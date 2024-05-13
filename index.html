@@ -17,7 +17,7 @@
   </template>
   <script src="./js/scene.js"></script>
   <div class="settings-box">
-    <form>
+    <div class="form track-type">
       <div class="check">
         <input type="radio" name="track-type" value="default" id="default" checked
           onchange="onTrackModeUpdate(radios.default)">
@@ -43,9 +43,14 @@
           onchange="onTrackModeUpdate(radios.track)">
         <label>朝直射点</label>
       </div>
-    </form>
+      <div class="check">
+        <input type="radio" name="track-type" value="ground" id="ground" 
+          onchange="onTrackModeUpdate(radios.ground)">
+        <label>地面视角</label>
+      </div>
+    </div>
 
-    <form>
+    <div class="form display">
       <div class="check">
         <input type="checkbox" name="earth-guideline" value="earth-axis" id="earth-axis" checked>
         <label>地轴</label>
@@ -66,9 +71,9 @@
         <input type="checkbox" name="earth-guideline" value="ecliptic" id="ecliptic">
         <label>黄道面</label>
       </div>
-    </form>
+    </div>
 
-    <form>
+    <div class="form camera">
       <div class="check">
         <label>水平旋转角度</label>
         <input type="range" id="horizon" min="-180" max="180" step="0.01">
@@ -84,17 +89,20 @@
       <div class="check">
         <input type="button" id="reset-camera" value="重置视角" onclick="resetCamera()">
       </div>
-    </form>
+    </div>
 
-    <form>
+    <div class="form solar">
       <dl style="overflow: hidden;margin-bottom: 5px;font-size: 110%;margin-top: 3px;">
         <dt style="float: left;clear: left;">黄经度数：</dt>
         <dd id="ecliptic-longitude" style="float: left; margin-left: 0px; transform: translateY(1px);"></dd>
         <dt style="float: left;clear: left;">节气：</dt>
         <dd id="term-period" style="float: left; margin-left: 0px; transform: translateY(1px);">春分~夏至</dd>
       </dl>
+    </div>
+    
+    <div>
       <input type="button" id="pause-btn" value="暂停旋转" />
-    </form>
+    </div>
   </div>
   <div class="dock-box">
     <div class="icon-box">
