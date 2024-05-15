@@ -2,150 +2,128 @@
 <html lang="zh-CH">
 
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="./style.css">
-  <script src="./js/three.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./js/three.js"></script>
 </head>
 
 <body background="./src/bk.jpg">
-  <template id="my-card">
-    <div class="card">
-      <div class="title"></div>
-      <dl class="context"></dl>
-      <a class="hyperlink" target="_blank"></a>
-    </div>
-  </template>
-  <script src="./js/scene.js"></script>
-  <div class="settings-box">
-    <div class="form track-type">
-      <div class="check">
-        <input type="radio" name="track-type" value="default" id="default" checked
-          onchange="onTrackModeUpdate(radios.default)">
-        <label>宇宙视角</label>
-      </div>
-      <div class="check">
-        <input type="radio" name="track-type" value="face-to" id="face-to" 
-          onchange="onTrackModeUpdate(radios.face_to)">
-        <label>朝地轴</label>
-      </div>
-      <div class="check">
-        <input type="radio" name="track-type" value="look-equator" id="look-equator" 
-          onchange="onTrackModeUpdate(radios.look_equator)">
-        <label>朝赤道</label>
-      </div>
-      <div class="check">
-        <input type="radio" name="track-type" value="same-direction" id="same-direction"
-          onchange="onTrackModeUpdate(radios.same_direction)">
-        <label>朝晨昏圈</label>
-      </div>
-      <div class="check">
-        <input type="radio" name="track-type" value="track" id="track" 
-          onchange="onTrackModeUpdate(radios.track)">
-        <label>朝直射点</label>
-      </div>
-      <div class="check">
-        <input type="radio" name="track-type" value="ground" id="ground" 
-          onchange="onTrackModeUpdate(radios.ground)">
-        <label>地面视角</label>
-      </div>
-    </div>
+    <template id="my-card">
+        <div class="card">
+            <div class="title"></div>
+            <dl class="context"></dl>
+            <a class="hyperlink" target="_blank"></a>
+        </div>
+    </template>
+    <script src="./js/scene.js"></script>
+    <div class="settings-box">
+        <div class="form track-type">
+            <select id="track-type">
+                <option value="default">宇宙视角</option>
+                <option value="face-to">朝地轴</option>
+                <option value="look-equator">朝赤道</option>
+                <option value="same-direction">朝晨昏圈</option>
+                <option value="track">朝直射点</option>
+                <!-- <option value="ground">地面视角</option> -->
+            </select>
+        </div>
 
-    <div class="form display">
-      <div class="check">
-        <input type="checkbox" name="earth-guideline" value="earth-axis" id="earth-axis" checked>
-        <label>地轴</label>
-      </div>
-      <div class="check">
-        <input type="checkbox" name="earth-guideline" value="terminator" id="terminator" checked>
-        <label>晨昏圈</label>
-      </div>
-      <div class="check">
-        <input type="checkbox" name="earth-guideline" value="graticules" id="graticules" checked>
-        <label>经纬网</label>
-      </div>
-      <div class="check">
-        <input type="checkbox" name="earth-guideline" value="subsolar-point" id="subsolar-point" checked>
-        <label>太阳直射点</label>
-      </div>
-      <div class="check">
-        <input type="checkbox" name="earth-guideline" value="ecliptic" id="ecliptic">
-        <label>黄道面</label>
-      </div>
-    </div>
+        <div class="form display">
+            <div class="check">
+                <input type="checkbox" name="earth-guideline" value="earth-axis" id="earth-axis" checked>
+                <label>地轴</label>
+            </div>
+            <div class="check">
+                <input type="checkbox" name="earth-guideline" value="terminator" id="terminator" checked>
+                <label>晨昏圈</label>
+            </div>
+            <div class="check">
+                <input type="checkbox" name="earth-guideline" value="graticules" id="graticules" checked>
+                <label>经纬网</label>
+            </div>
+            <div class="check">
+                <input type="checkbox" name="earth-guideline" value="subsolar-point" id="subsolar-point" checked>
+                <label>太阳直射点</label>
+            </div>
+            <div class="check">
+                <input type="checkbox" name="earth-guideline" value="ecliptic" id="ecliptic">
+                <label>黄道面</label>
+            </div>
+        </div>
 
-    <div class="form camera">
-      <div class="check">
-        <label>水平旋转角度</label>
-        <input type="range" id="horizon" min="-180" max="180" step="0.01">
-      </div>
-      <div class="check">
-        <label>竖直旋转角度</label>
-        <input type="range" id="vertical" min="-89.9" max="89.9" step="0.01" value="45">
-      </div>
-      <div class="check">
-        <label>变焦倍数</label>
-        <input type="range" id="zoom" min="0.1" max="7" step="0.01" value="2.8">
-      </div>
-      <div class="check">
-        <input type="button" id="reset-camera" value="重置视角" onclick="resetCamera()">
-      </div>
-    </div>
+        <div class="form camera">
+            <div class="check">
+                <label>水平旋转角度</label>
+                <input type="range" id="horizon" min="-180" max="180" step="0.01">
+            </div>
+            <div class="check">
+                <label>竖直旋转角度</label>
+                <input type="range" id="vertical" min="-89.9" max="89.9" step="0.01" value="45">
+            </div>
+            <div class="check">
+                <label>变焦倍数</label>
+                <input type="range" id="zoom" min="0.1" max="7" step="0.01" value="2.8">
+            </div>
+            <div class="check">
+                <input type="button" id="reset-camera" value="重置视角" onclick="resetCamera()">
+            </div>
+        </div>
 
-    <div class="form solar">
-      <dl style="overflow: hidden;margin-bottom: 5px;font-size: 110%;margin-top: 3px;">
-        <dt style="float: left;clear: left;">黄经度数：</dt>
-        <dd id="ecliptic-longitude" style="float: left; margin-left: 0px; transform: translateY(1px);"></dd>
-        <dt style="float: left;clear: left;">节气：</dt>
-        <dd id="term-period" style="float: left; margin-left: 0px; transform: translateY(1px);">春分~夏至</dd>
-      </dl>
+        <div class="form solar">
+            <dl style="overflow: hidden;margin-bottom: 5px;font-size: 110%;margin-top: 3px;">
+                <dt style="float: left;clear: left;">黄经度数：</dt>
+                <dd id="ecliptic-longitude" style="float: left; margin-left: 0px; transform: translateY(1px);"></dd>
+                <dt style="float: left;clear: left;">节气：</dt>
+                <dd id="term-period" style="float: left; margin-left: 0px; transform: translateY(1px);">春分</dd>
+            </dl>
+        </div>
+
+        <div>
+            <input type="button" id="pause-btn" value="暂停旋转" />
+        </div>
     </div>
-    
-    <div>
-      <input type="button" id="pause-btn" value="暂停旋转" />
+    <div class="dock-box">
+        <div class="icon-box">
+            <div class="icon-box icon">立春</div>
+            <div class="icon-box icon">雨水</div>
+            <div class="icon-box icon">惊蛰</div>
+            <div class="icon-box icon">春分</div>
+            <div class="icon-box icon">清明</div>
+            <div class="icon-box icon">谷雨</div>
+            <div class="icon-box icon">立夏</div>
+            <div class="icon-box icon">小满</div>
+            <div class="icon-box icon">芒种</div>
+            <div class="icon-box icon">夏至</div>
+            <div class="icon-box icon">小暑</div>
+            <div class="icon-box icon">大暑</div>
+            <div class="icon-box icon">立秋</div>
+            <div class="icon-box icon">处暑</div>
+            <div class="icon-box icon">白露</div>
+            <div class="icon-box icon">秋分</div>
+            <div class="icon-box icon">寒露</div>
+            <div class="icon-box icon">霜降</div>
+            <div class="icon-box icon">立冬</div>
+            <div class="icon-box icon">小雪</div>
+            <div class="icon-box icon">大雪</div>
+            <div class="icon-box icon">冬至</div>
+            <div class="icon-box icon">小寒</div>
+            <div class="icon-box icon">大寒</div>
+        </div>
+        <div class="dock-box dock"></div>
     </div>
-  </div>
-  <div class="dock-box">
-    <div class="icon-box">
-      <div class="icon-box icon">立春</div>
-      <div class="icon-box icon">雨水</div>
-      <div class="icon-box icon">惊蛰</div>
-      <div class="icon-box icon">春分</div>
-      <div class="icon-box icon">清明</div>
-      <div class="icon-box icon">谷雨</div>
-      <div class="icon-box icon">立夏</div>
-      <div class="icon-box icon">小满</div>
-      <div class="icon-box icon">芒种</div>
-      <div class="icon-box icon">夏至</div>
-      <div class="icon-box icon">小暑</div>
-      <div class="icon-box icon">大暑</div>
-      <div class="icon-box icon">立秋</div>
-      <div class="icon-box icon">处暑</div>
-      <div class="icon-box icon">白露</div>
-      <div class="icon-box icon">秋分</div>
-      <div class="icon-box icon">寒露</div>
-      <div class="icon-box icon">霜降</div>
-      <div class="icon-box icon">立冬</div>
-      <div class="icon-box icon">小雪</div>
-      <div class="icon-box icon">大雪</div>
-      <div class="icon-box icon">冬至</div>
-      <div class="icon-box icon">小寒</div>
-      <div class="icon-box icon">大寒</div>
-    </div>
-    <div class="dock-box dock"></div>
-  </div>
-  <script src="./js/figure/earth_axis.js"></script>
-  <script src="./js/figure/earth.js"></script>
-  <script src="./js/figure/ecliptic.js"></script>
-  <script src="./js/figure/graticules.js"></script>
-  <script src="./js/figure/lunar_orbit_plane.js"></script>
-  <script src="./js/figure/moon.js"></script>
-  <script src="./js/figure/subsolar_point.js"></script>
-  <script src="./js/figure/sun.js"></script>
-  <script src="./js/figure/terminator.js"></script>
-  <script src="./js/card.js"></script>
-  <script src="./js/dock.js"></script>
-  <script src="./js/script.js"></script>
-  <script src="./js/render.js"></script>
+    <script src="./js/figure/earth_axis.js"></script>
+    <script src="./js/figure/earth.js"></script>
+    <script src="./js/figure/ecliptic.js"></script>
+    <script src="./js/figure/graticules.js"></script>
+    <script src="./js/figure/lunar_orbit_plane.js"></script>
+    <script src="./js/figure/moon.js"></script>
+    <script src="./js/figure/subsolar_point.js"></script>
+    <script src="./js/figure/sun.js"></script>
+    <script src="./js/figure/terminator.js"></script>
+    <script src="./js/card.js"></script>
+    <script src="./js/dock.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/render.js"></script>
 </body>
 
 </html>

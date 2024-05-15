@@ -22,9 +22,10 @@ const pause_button = document.getElementById("pause-btn");
 degree_box = document.getElementById("ecliptic-longitude");
 term_box = document.getElementById("term-period");
 
-function onTrackModeUpdate(e) {
-    const last_move_mode = camera_track.move_mode;
-    camera_track.move_mode = e.value;
+var last_move_mode = "default";
+document.querySelector("select").addEventListener("change", function (e) {
+    last_move_mode = camera_track.move_mode;
+    camera_track.move_mode = e.target.value;
 
     if (camera_track.move_mode == "default") {
         initCamera();
@@ -48,7 +49,7 @@ function onTrackModeUpdate(e) {
         horizon.value = 0;
         vertical.value = 0;
     }
-}
+});
 
 track_degrees.horizon.addEventListener("input", function () {
     camera_track.horizon_degree = track_degrees.horizon.value * (Math.PI / 180);
@@ -65,7 +66,7 @@ track_degrees.vertical.addEventListener("input", function () {
     }
     camera_track.vertical_degree = track_degrees.vertical.value * (Math.PI / 180);
 })
-track_degrees.zoom.addEventListener("input", function() {
+track_degrees.zoom.addEventListener("input", function () {
     camera.zoom = track_degrees.zoom.value;
     camera.updateProjectionMatrix();
 })
@@ -82,7 +83,7 @@ function resetCamera() {
 
     track_degrees.horizon.value = 0;
     track_degrees.zoom.value = 2.8;
-    
+
     camera_track.horizon_degree = 0;
     camera.zoom = 2.8;
     camera.updateProjectionMatrix();

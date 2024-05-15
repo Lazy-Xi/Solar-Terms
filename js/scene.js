@@ -17,6 +17,8 @@ var term_box;
 const phi = 23.5 * (Math.PI / 180);
 const beta = 5.1 * (Math.PI / 180);
 
+const earth_radius = 1;
+
 const earth_revolution_radius = 3;
 const moon_revolution_radius = 0.85;
 

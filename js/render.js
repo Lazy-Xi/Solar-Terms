@@ -122,6 +122,22 @@ function cameraMoveUpdate() {
 
         camera.updateProjectionMatrix();
     }
+    else if (camera_track.move_mode == "ground") {
+        const h = camera_track.horizon_degree;
+        const v = camera_track.vertical_degree;
+
+        const x0 = earth_radius * Math.cos(h) * Math.cos(phi);
+        const y0 = earth_radius * Math.cos(h) * Math.sin(phi);
+        const z0 = earth_radius * Math.sin(h);
+        
+        const phi0 = Math.asin(y0 / earth_radius);
+
+        camera.position.x = x - x0 * Math.cos(v + phi0) / Math.cos(phi0);
+        camera.position.y = earth_radius * Math.sin(v + Math.asin(y0 / earth_radius));
+        camera.position.z = z + z0 * Math.cos(v + phi0) / Math.cos(phi0);
+
+        camera.lookAt(x, 0, z);
+    }
 }
 
 function animate() {
