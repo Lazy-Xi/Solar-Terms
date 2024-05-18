@@ -5,8 +5,6 @@ scene.add(terminator.mesh);
 scene.add(subsolar_point.mesh);
 scene.add(graticules.mesh);
 scene.add(moon.mesh);
-scene.add(lunar_orbit_plane.mesh);
-
 animate();
 
 function update() {
@@ -60,8 +58,8 @@ function update() {
     terminator.mesh.position.x = x;
     terminator.mesh.position.z = z;
 
-    subsolar_point.mesh.position.x = 0.88301064 * x;
-    subsolar_point.mesh.position.z = 0.88301064 * z;
+    subsolar_point.mesh.position.x = 0.865 * x;
+    subsolar_point.mesh.position.z = 0.865 * z;
 
     lunar_orbit_plane.mesh.position.x = x;
     lunar_orbit_plane.mesh.position.z = z;

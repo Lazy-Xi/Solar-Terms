@@ -15,7 +15,8 @@ const checkboxes = {
     terminator: document.getElementById("terminator"),
     ecliptic: document.getElementById("ecliptic"),
     subsolar_point: document.getElementById("subsolar-point"),
-    graticules: document.getElementById("graticules")
+    graticules: document.getElementById("graticules"),
+    lunar_orbit_plane: document.getElementById("lunar-orbit-plane")
 };
 const pause_button = document.getElementById("pause-btn");
 
@@ -118,6 +119,12 @@ checkboxes.graticules.addEventListener("change", function () {
         scene.add(graticules.mesh);
     else
         scene.remove(graticules.mesh);
+});
+checkboxes.lunar_orbit_plane.addEventListener("change", function () {
+    if (checkboxes.lunar_orbit_plane.checked == true)
+        scene.add(lunar_orbit_plane.mesh);
+    else
+        scene.remove(lunar_orbit_plane.mesh);
 });
 
 pause_button.addEventListener("click", function () {
